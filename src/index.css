@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Manjari:wght@100;400;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Manjari", sans-serif;
+}
+
+:root {
+  /*========== Font Family ==========*/
+  --body-font: "Manjari", sans-serif; 
+
+
+
+  /*========== z index ==========*/
+  --z-tooltip: 10;
+  --z-fixed: 100;
+  --z-modal: 1000;
+
+  /* Text Colors */
+  --primary-text: #27374D;
+  --secondary-text: #526D82;
+  --tertiary-text: #9DB2BF;
+  --text-white: #fff;
+
+  /* blue color */
+  --primary-blue: #00A9FF;
+  --secondary-blue: #89CFF3;
+  --tertiary-blue: #CDF5FD;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Manjari", sans-serif;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(237, 237, 237);
+  border-radius: 40px;
+}
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
