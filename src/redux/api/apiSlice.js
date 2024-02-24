@@ -5,20 +5,6 @@ const baseQuery = fetchBaseQuery({ baseUrl: BASE_URL });
 
 export const apiSlice = createApi({
     baseQuery,
-    tagTypes: ["Post"],
+    tagTypes: ["Post", "Comment"],
     endpoints: () => ({})
 });
-
-// export const apiSlice = createApi({
-//     reducerPath: 'api',
-//     baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:5000' }),
-//     tagTypes: ['Post'],
-//     endpoints: (builder) => ({
-//         getPosts:  builder.query({
-//             query: () => '/api/posts',
-//             providesTags: ['Post']
-//         })
-//     })
-// })
-
-// export const { useGetPostQuery } = apiSlice;

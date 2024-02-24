@@ -6,10 +6,19 @@ export const postApiSlice = apiSlice.injectEndpoints({
         getPosts: builder.query({
             query: () => `${UPLOAD_URL}`,
             providesTags: ['Post']
+        }),
+        createPost: builder.mutation({
+            query: (post) => ({
+                url: `${UPLOAD_URL}`,
+                method: 'POST',
+                body: post
+            }),
+            invalidatesTags: ['Post']
         })
     })
 })
 
 export const {
-    useGetPostsQuery
+    useGetPostsQuery,
+    useCreatePostMutation
 } = postApiSlice

@@ -1,14 +1,17 @@
 import React from 'react';
+import moment from 'moment';
 
 // stylesheet
 import styles from './Comment.module.css';
 
-const Comment = () => {
+const Comment = ({ ulfa }) => {
+  const timeAgo = moment(ulfa.createdAt).fromNow();
+
   return (
     <div className={styles.container}>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta, magni!</p>
+        <p>{ulfa.comment}</p>
         <div>
-            <p className={styles.time}>12 minutes ago</p>
+            <p className={styles.time}>{timeAgo}</p>
             <button className={styles.commentBtn}>reply</button>
         </div>
     </div>

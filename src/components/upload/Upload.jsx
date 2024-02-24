@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { useCreatePostMutation } from '../../redux/api/postApiSlice';
 
 // stylesheet
 import styles from './Upload.module.css';
@@ -9,10 +10,30 @@ const Upload = () => {
         description: ""
     });
 
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    const [createPost] = useCreatePostMutation();
+
     const handleChange = (e) => {
         setPost({ ...post, [e.target.name]: e.target.value })
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        // console.log(post);
+        setIsSubmitting(true); 
+        try {
+            await createPost(post);
+            setPost({
+                category: "",
+                description: ""
+            });
+        } catch (error) {
+            console.error('Error creating post:', error);
+        } finally {
+            setIsSubmitting(false);
+        }
+    }
 
     return (
         <div className={styles.container}>
@@ -21,7 +42,7 @@ const Upload = () => {
                     <h1 className={styles.heading}>Upload A Post</h1>
                     <h3 className={styles.subHeading}>Whats in your Mind</h3>
                 </div>
-                <form className={styles.form} onSubmit={() => { }}>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <div className={styles.categoryBox}>
                         <h5 className={styles.heading}>Select the category:</h5>
                         <select
@@ -49,7 +70,7 @@ const Upload = () => {
                     </div>
                     <div className={styles.buttonContainer}>
                     <button className={styles.discard}>discard</button>
-                    <button className={styles.post}>post</button>
+                    <button className={styles.post}>{isSubmitting ? <p>uploading</p> : <p>submit</p>}</button>
                     </div>
                 </form>
             </div>
