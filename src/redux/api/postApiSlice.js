@@ -14,11 +14,28 @@ export const postApiSlice = apiSlice.injectEndpoints({
                 body: post
             }),
             invalidatesTags: ['Post']
+        }),
+        setBookmarked: builder.mutation({
+            query: (post) => ({
+                url: `/api/posts/${post.postId}/bookmark`,
+                method: 'POST',
+                // body: post
+            }),
+            invalidatesTags: ['Post']
+        }),
+        deletePost: builder.mutation({
+            query: (post) => ({
+                url: `/api/posts/${post.postId}`,
+                method: 'DELETE',
+            }),
+            invalidatesTags: ['Post']
         })
     })
 })
 
 export const {
     useGetPostsQuery,
-    useCreatePostMutation
+    useCreatePostMutation,
+    useSetBookmarkedMutation,
+    useDeletePostMutation
 } = postApiSlice

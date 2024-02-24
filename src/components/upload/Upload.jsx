@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useCreatePostMutation } from '../../redux/api/postApiSlice';
 
 // stylesheet
@@ -9,6 +10,8 @@ const Upload = () => {
         category: "",
         description: ""
     });
+
+    const navigate = useNavigate();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -21,7 +24,7 @@ const Upload = () => {
     const handleSubmit = async (e) => {
         e.preventDefault();
         // console.log(post);
-        setIsSubmitting(true); 
+        setIsSubmitting(true);
         try {
             await createPost(post);
             setPost({
@@ -69,8 +72,8 @@ const Upload = () => {
                         />
                     </div>
                     <div className={styles.buttonContainer}>
-                    <button className={styles.discard}>discard</button>
-                    <button className={styles.post}>{isSubmitting ? <p>uploading</p> : <p>submit</p>}</button>
+                        <button className={styles.discard} onClick={() => navigate('/')}>discard</button>
+                        <button className={styles.post}>{isSubmitting ? <p>uploading</p> : <p>submit</p>}</button>
                     </div>
                 </form>
             </div>

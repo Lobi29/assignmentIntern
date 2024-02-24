@@ -7,7 +7,7 @@ const SortBox = ({ totalPost = 0, order, handleChange }) => {
 
     return (
         <div className={styles.container}>
-            <h5>{totalPost} posts</h5>
+            <h2>{totalPost} posts</h2>
             <div className={styles.sortContainer}>
                 <h5>Sort Post</h5>
                 <select

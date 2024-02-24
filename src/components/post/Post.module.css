@@ -30,6 +30,10 @@
     color: var(--secondary-blue);
 }
 
+.icon:hover {
+    cursor: pointer;
+}
+
 .bottomContainer {
     display: flex;
     justify-content: space-between;

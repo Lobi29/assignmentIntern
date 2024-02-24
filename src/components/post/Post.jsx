@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import moment from 'moment';
 import { useGetCommentsQuery, useCreateCommentMutation } from '../../redux/api/commentApiSlice';
+import { useSetBookmarkedMutation, useDeletePostMutation } from '../../redux/api/postApiSlice';
 
 // assets
 import { CgBookmark } from "react-icons/cg";
 import { RiDeleteBin7Line } from "react-icons/ri";
 import Comment from '../comment/Comment';
+import { FaBookmark } from "react-icons/fa";
 
 // stylesheet
 import styles from './Post.module.css';
@@ -14,9 +16,12 @@ const Post = ({ postDetails }) => {
     const [comment, setComment] = useState("");
     const [condition, setConditon] = useState(true);
     const [isSubmitting, setIsSubmitting] = useState(false);
+    const [isBookmarked, setIsBookmarked] = useState(postDetails.isBookmarked);
 
     const { data: comments, isLoading, isSuccess, isError, error } = useGetCommentsQuery({ postId: postDetails._id });
     const [createComment] = useCreateCommentMutation();
+    const [setBookmarked] = useSetBookmarkedMutation();
+    const [deletePost] = useDeletePostMutation();
 
 
     const handleComment = () => {
@@ -32,9 +37,42 @@ const Post = ({ postDetails }) => {
         }
     }
 
-    const handleChange = (e) => {
+    const handleChange =  (e) => {
         setComment(e.target.value);
     }
+
+    const handleDelete = async () => {
+        try {
+            await deletePost({ postId: postDetails._id });
+        } catch (error) {
+            console.log('Error handling bookmark', error);
+        } finally {
+            console.log('post deleted succesfully');
+        }
+    }
+
+    const handleBookmarked = async () => {
+        try {
+            await setBookmarked({ postId: postDetails._id });
+        } catch (error) {
+            console.log('Error handling bookmark', error);
+        } finally {
+            if (isBookmarked) {
+                setIsBookmarked(false);
+            } else {
+                setIsBookmarked(true);
+            }
+        }
+        // if (isBookmarked) {
+        //     setIsBookmarked(false);
+        //     console.log(postDetails._id)
+        //     setBookmarked({ postId: postDetails._id });
+        // } else {
+        //     console.log(postDetails._id)
+        //     setIsBookmarked(true);
+        //     setBookmarked(postDetails);
+        // }
+    } 
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -58,8 +96,12 @@ const Post = ({ postDetails }) => {
             <div className={styles.topContainer}>
                 <div className={styles.heading}>#{postDetails.category}</div>
                 <div className={styles.features}>
-                    <CgBookmark className={styles.icon} />
-                    <RiDeleteBin7Line className={styles.icon} />
+                    <div>{isBookmarked === true ? 
+                    <FaBookmark className={styles.icon} onClick={handleBookmarked} />
+                    :
+                    <CgBookmark className={styles.icon} onClick={handleBookmarked} />
+                }</div>
+                    <RiDeleteBin7Line className={styles.icon} onClick={handleDelete} />
                 </div>
             </div>
             <div className={styles.middleConatiner}>
